@@ -6,13 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import {MaterialModule} from './helper/material-module'
+import {MaterialModule} from './helper/material-module';
+import { CataloguePageComponent } from './catalogue-page/catalogue-page.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    CataloguePageComponent
   ],
   imports: [
     BrowserModule,

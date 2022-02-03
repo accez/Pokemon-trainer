@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="card">
+    <h1>Pokemon Catalogue</h1>
+    <h3>Now showing pokemons {{currentPokemonIndex}} to {{currentPokemonIndex + 19}}</h3>
+
+    <div>
+      <button mat-raised-button color="primary" (click)="previousPage()" >Back</button>
+      <button mat-raised-button color="primary" (click)="nextPage()">Next</button>
+    </div>
+    
+  </div>
+
+  <div class="card inline-block" *ngFor="let item of pokemonList()" >
+    <h2 class="first-letter" > {{item.name}} </h2>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(item)}}"/>
+  </div>
+  <!-- https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png -->
+  <!-- <ul>
+    <li *ngFor="let item of pokemonList()" > Name: {{item.name}} Url: {{item.url}} </li>
+  </ul> -->
+
+</div>
