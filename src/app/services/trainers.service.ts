@@ -14,8 +14,8 @@ const httpOptions = {
 })
 
 export class TrainersService{
-    private trainers: Trainer[] = [];
-    private error: string = "";
+    private _trainers: Trainer[] = [];
+    private _error: string = "";
     
 
     constructor(private http: HttpClient, ) {
@@ -24,9 +24,9 @@ export class TrainersService{
     public fetchTrainers(): void {
         this.http.get<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers")
         .subscribe((trainers: Trainer[]) =>{
-            this.trainers = trainers;
+            this._trainers = trainers;
         },(error: HttpErrorResponse) =>{
-            this.error = error.message;
+            this._error = error.message;
         })
     }
 
@@ -34,5 +34,13 @@ export class TrainersService{
         this.http.post<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers",trainer, httpOptions)
         .subscribe((trainer: Trainer[]) =>{
         })
+    }
+
+    public trainers(): Trainer[]{
+        return this._trainers
+    }
+
+    public error() :string{
+        return this._error
     }
 };
