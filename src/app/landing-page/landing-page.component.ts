@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainersService } from '../services/trainers.service';
+import { Trainer } from '../models/trainer.model';
 
 @Component({
   selector: 'app-landing-page',
@@ -14,15 +15,23 @@ export class LandingPageComponent implements OnInit {
     this.trainersService.fetchTrainers()
   }
 
-  public onChangeGetUserName(event: any) {
-    this.userInput = event.target.value
+  public onChangeGetUserName(event: Event) {
+    const target = event.target as HTMLInputElement
+    this.userInput = target.value 
   }
 
-  public getUserInput() {
+  public getUserInput():string {
     return this.userInput
   }
 
-  public submit(e:any){
-    e.preventDefault();
+  public addTrainer () {
+    const uniq = new Date().getTime();
+    const newTrainer: Trainer =  {id: uniq, username:this.getUserInput(), pokemon: []}
+    this.trainersService.postATrainer(newTrainer)
+  }
+
+  public submit(event:Event){
+    event.preventDefault();
+    this.addTrainer();
    }
 }

@@ -1,6 +1,13 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Trainer } from "../models/trainer.model";
+
+const httpOptions = {
+    headers: new HttpHeaders({
+        'X-API-Key':"X9dHGcSU9kuwKyxz2/p+TA==",
+      'Content-Type':  'application/json',
+    })
+  };
 
 @Injectable({
     providedIn: "root"
@@ -9,8 +16,9 @@ import { Trainer } from "../models/trainer.model";
 export class TrainersService{
     private trainers: Trainer[] = [];
     private error: string = "";
+    
 
-    constructor(private readonly http: HttpClient) {
+    constructor(private http: HttpClient, ) {
     }
 
     public fetchTrainers(): void {
@@ -19,6 +27,12 @@ export class TrainersService{
             this.trainers = trainers;
         },(error: HttpErrorResponse) =>{
             this.error = error.message;
+        })
+    }
+
+    public postATrainer(trainer: Trainer) {
+        this.http.post<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers",trainer, httpOptions)
+        .subscribe((trainer: Trainer[]) =>{
         })
     }
 };
