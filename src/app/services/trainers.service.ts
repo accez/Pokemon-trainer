@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Trainer } from "../models/trainer.model";
 
 const httpOptions = {
     headers: new HttpHeaders({
         'X-API-Key':"X9dHGcSU9kuwKyxz2/p+TA==",
-      'Content-Type':  'application/json',
+        'Content-Type':  'application/json',
     })
   };
 
