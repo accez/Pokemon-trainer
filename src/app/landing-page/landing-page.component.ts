@@ -27,7 +27,7 @@ export class LandingPageComponent implements OnInit {
   public addTrainer () {
     const uniq = new Date().getTime();
     const newTrainer: Trainer =  {id: uniq, username:this.getUserInput(), pokemon: []}
-    const existingTrainer = this.doesTrainerExistInDatabase(JSON.stringify(newTrainer))
+    const existingTrainer = this.doesTrainerExistInDatabase()
     
     if(existingTrainer){
       return
@@ -42,11 +42,16 @@ export class LandingPageComponent implements OnInit {
     this.addTrainer();
    }
 
-   doesTrainerExistInDatabase(user:string):boolean {
+   doesTrainerExistInDatabase():boolean {
     let boolean = false
     for (const trainer of this.trainers) {
       if(this.getUserInput() === trainer.username){
-        this.storeTrainerInLocalStorage(user)
+        let trainerObject = {
+          id: trainer.id,
+          username: trainer.username,
+          pokemon: trainer.pokemon
+        }
+        this.storeTrainerInLocalStorage(JSON.stringify(trainerObject))
         boolean = true
       }
     }
