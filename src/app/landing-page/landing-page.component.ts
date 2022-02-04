@@ -27,9 +27,14 @@ export class LandingPageComponent implements OnInit {
   public addTrainer () {
     const uniq = new Date().getTime();
     const newTrainer: Trainer =  {id: uniq, username:this.getUserInput(), pokemon: []}
-    // this.storeTrainerInLocalStorage(JSON.stringify(newTrainer))
-    // this.doesTrainerExistInDatabase(JSON.stringify(newTrainer))
-    // this.trainersService.postATrainer(newTrainer)
+    const existingTrainer = this.doesTrainerExistInDatabase(JSON.stringify(newTrainer))
+    
+    if(existingTrainer){
+      return
+    } else {
+      this.storeTrainerInLocalStorage(JSON.stringify(newTrainer))
+      this.trainersService.postATrainer(newTrainer)
+    }
   }
 
   public submit(event:Event){
@@ -37,23 +42,16 @@ export class LandingPageComponent implements OnInit {
     this.addTrainer();
    }
 
-   doesTrainerExistInDatabase(user:string) {
+   doesTrainerExistInDatabase(user:string):boolean {
+    let boolean = false
     for (const trainer of this.trainers) {
       if(this.getUserInput() === trainer.username){
         this.storeTrainerInLocalStorage(user)
+        boolean = true
       }
     }
+    return boolean
    }
-  //  const doesUserExistInDatabase = async (users) => {
-  //   for (const user of users) {
-  //     if (user.username === userInput) {
-  //       storeUserInLocalStorage('user', JSON.stringify(user));
-  //       setPropValues(user.username, user.id, true);
-  //       navigateToTranslationPage();
-  //       return true;
-  //     }
-  //   }
-  // };
 
   get trainers() : Trainer[] {
     return this.trainersService.trainers();
