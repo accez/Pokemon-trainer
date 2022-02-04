@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './auth/auth.service';
-// import { GuardAuthGuard } from './guard-auth.guard';
+import { CataloguePageComponent } from './catalogue-page/catalogue-page.component';
+import { GuardAuthGuard } from './guard-auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { 
-    path: '',   redirectTo: '/landing-page', pathMatch: 'full' 
+  {
+    path: '', redirectTo: '/landing-page', pathMatch: 'full'
   },
   {
     path: 'landing-page',
     component: LandingPageComponent
+  },{
+    path: 'catalogue',
+    // pathMatch:'full',
+    component: CataloguePageComponent,
+    // canActivate:[GuardAuthGuard]
   },
-  { 
-    path: '**', component: PageNotFoundComponent 
+  {
+    path: '**', component: PageNotFoundComponent
   }
 ];
 

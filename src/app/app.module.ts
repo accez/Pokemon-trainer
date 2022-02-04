@@ -15,7 +15,7 @@ import { CataloguePageComponent } from './catalogue-page/catalogue-page.componen
   declarations: [
     AppComponent,
     LandingPageComponent,
-    CataloguePageComponent
+    CataloguePageComponent,
     PageNotFoundComponent
   ],
   imports: [
