@@ -1,0 +1,30 @@
+.page-not-found-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  h1 {
+    font-size: 6.5em;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #9fd356;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+  h2 {
+    font-size: 2.5em;
+    margin-top: 50px;
+    color: #9fd356;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+  .center-text {
+    position: absolute;
+    font-size: 1.4em;
+    text-align: center;
+    color: #9fd356;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    margin-bottom: 100px;
+  }
+}
