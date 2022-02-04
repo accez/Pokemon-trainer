@@ -1,14 +1,11 @@
 <div class="container">
   <div class="card">
     <h1>Pokemon Catalogue</h1>
-    <h3>Now showing pokemons {{currentPokemonIndex}} to {{currentPokemonIndex + 19}}</h3>
 
-    <div>
-      <button mat-raised-button color="primary" (click)="previousPage()">Back</button>
-      <button mat-raised-button color="primary" (click)="nextPage()">Next</button>
-    </div>
-
+    <mat-paginator [length]="100" [pageSize]="defaultPageSize" [pageSizeOptions]="[ 10, 20]" aria-label="Select page"
+      (page)="handelPageChange($event)"></mat-paginator>
   </div>
+
 
   <div class="card inline-block" *ngFor="let pokemon of pokemonList()" (click)="catchPokemon(pokemon)">
     <h2 class="first-letter"> {{pokemon.name}} </h2>
@@ -21,6 +18,6 @@
     </div>
   </div>
 
-  
+
 
 </div>

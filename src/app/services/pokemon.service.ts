@@ -13,8 +13,8 @@ export class PokemonService {
 
   constructor(private http: HttpClient,) { }
 
-  public fetchPokemonListWithOffset(offset: Number) {
-    this.http.get<PokemonListFromApi>(`${this.pokemonApiBaseUrl}?offset=${offset}&limit=20`)
+  public fetchPokemonListWithOffset(offset: Number,nrToFetch:number) {
+    this.http.get<PokemonListFromApi>(`${this.pokemonApiBaseUrl}?offset=${offset}&limit=${nrToFetch}`)
       .subscribe({
         next: (response) => {
           this.pokemonList = response.results
