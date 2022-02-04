@@ -1,11 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 .landing-page-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 100vh;
   form {
     display: flex;
     flex-direction: column;
+  }
+  h1 {
+    font-family: "VT323", monospace;
+    font-size: 84px;
+    margin-bottom: 50px;
+    color: white;
   }
   .landing-page-card {
     display: flex;
