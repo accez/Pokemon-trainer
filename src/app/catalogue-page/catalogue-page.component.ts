@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../models/pokemon.model';
+import { Trainer } from '../models/trainer.model';
 import { PokemonService } from '../services/pokemon.service';
+import { TrainersService } from '../services/trainers.service';
 
 
 const mock: Pokemon[] = [
@@ -100,44 +102,61 @@ const mock2: Pokemon[] = [
 })
 export class CataloguePageComponent implements OnInit {
 
+
+  trainersPokemons: string[] = ["bulbasaur", "charizard"]
   // pokemonList: Pokemon[] = [];
   currentPokemonIndex: number = 0
 
-  constructor(private readonly pokemonService: PokemonService) { }
+  constructor(
+    private readonly pokemonService: PokemonService,
+    private readonly trainerService: TrainersService) {
+
+  }
 
   ngOnInit(): void {
-     this.fetchPokemonList();
+    //this.fetchPokemonList();
   }
-  fetchPokemonList(){
-    this.pokemonService.fetchPokemonListWithOffset(this.currentPokemonIndex)
+  fetchPokemonList() {
+    //this.pokemonService.fetchPokemonListWithOffset(this.currentPokemonIndex)
   }
 
   pokemonList(): Pokemon[] {
-    return this.pokemonService.getPokemonList
-    //return mock
+    //return this.pokemonService.getPokemonList
+    return mock
   }
 
-  pokemonNameFormat(pokemon: Pokemon): string {
-    let urlArray = pokemon.url.split("/")
-    return urlArray[urlArray.length-2] + ".png"
-    // return pokemon.url.charAt(pokemon.url.length - 2) + ".png"
+
+  catchPokemon(pokemon: Pokemon) {
+    this.trainersPokemons.push(pokemon.name)
+    const trainer:Trainer = {id: 1,
+      username: "Test",
+      pokemon: this.trainersPokemons,
+    }
+    this.trainerService.addPokemonToTrainer(trainer)
   }
+
+  /**
+   * Help render methods 
+   */
+
+  /**
+   * 
+   * @param pokemon 
+   * @returns 
+   */
   pokemonId(pokemon: Pokemon): string {
     let urlArray = pokemon.url.split("/")
-    // let id = urlArray[]
-    return urlArray[urlArray.length-2] + ".png"
-    // return pokemon.url.charAt(pokemon.url.length - 2) + ".png"
+    return urlArray[urlArray.length - 2] + ".png"
   }
 
-
-  previousPage(){
-    if(this.currentPokemonIndex !== 0){
+  previousPage() {
+    if (this.currentPokemonIndex !== 0) {
       this.currentPokemonIndex -= 20
       this.fetchPokemonList()
     }
   }
-  nextPage(){
-    if(this.currentPokemonIndex !== 1138){
+  nextPage() {
+    if (this.currentPokemonIndex !== 1138) {
       this.currentPokemonIndex += 20
       this.fetchPokemonList()
     }

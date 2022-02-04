@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Pokemon } from "../models/pokemon.model";
 import { Trainer } from "../models/trainer.model";
 
 const httpOptions = {
@@ -17,6 +18,7 @@ export class TrainersService{
     private trainers: Trainer[] = [];
     private error: string = "";
     
+    private baseUrl = "https://spa-lb-experis-assignment.herokuapp.com/trainers"
 
     constructor(private http: HttpClient, ) {
     }
@@ -35,4 +37,16 @@ export class TrainersService{
         .subscribe((trainer: Trainer[]) =>{
         })
     }
+
+    public addPokemonToTrainer(trainer:Trainer):void{
+        this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`,trainer,httpOptions)
+        .subscribe({
+            next: (response) => {
+              // TODO man borde sen kanske sätta state här?
+              console.log(response)
+            }, error: (error: Error) => { console.log(error.message) }
+          })
+
+    }
+
 };
