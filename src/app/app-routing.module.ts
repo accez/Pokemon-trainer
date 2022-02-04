@@ -15,9 +15,8 @@ const routes: Routes = [
     component: LandingPageComponent
   },{
     path: 'catalogue',
-    // pathMatch:'full',
     component: CataloguePageComponent,
-    // canActivate:[GuardAuthGuard]
+    canActivate:[GuardAuthGuard]
   },
   {
     path: '**', component: PageNotFoundComponent
