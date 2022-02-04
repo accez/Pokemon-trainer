@@ -6,8 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import {MaterialModule} from './helper/material-module';
-import { TryToGuardComponent } from './try-to-guard/try-to-guard.component';
+import { MaterialModule } from './helper/material-module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 
@@ -15,7 +14,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   declarations: [
     AppComponent,
     LandingPageComponent,
-    TryToGuardComponent,
     PageNotFoundComponent
   ],
   imports: [
