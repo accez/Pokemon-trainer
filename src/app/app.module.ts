@@ -7,14 +7,16 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import {MaterialModule} from './helper/material-module';
-import { TryToGuardComponent } from './try-to-guard/try-to-guard.component'
+import { TryToGuardComponent } from './try-to-guard/try-to-guard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    TryToGuardComponent
+    TryToGuardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
