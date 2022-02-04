@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainersService } from '../services/trainers.service';
 import { Trainer } from '../models/trainer.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-landing-page',
@@ -8,11 +10,12 @@ import { Trainer } from '../models/trainer.model';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private readonly trainersService:TrainersService) { }
+  constructor(private readonly trainersService:TrainersService, private route: Router) { }
   private _userInput: string = '';
 
   ngOnInit(): void {
     this.trainersService.fetchTrainers()
+    this.doesTrainerExistInDatabase()
   }
 
   public onChangeGetUserName(event: Event) {
@@ -34,6 +37,7 @@ export class LandingPageComponent implements OnInit {
     } else {
       this.storeTrainerInLocalStorage(JSON.stringify(newTrainer))
       this.trainersService.postATrainer(newTrainer)
+      this.route.navigate(["/catalogue"])
     }
   }
 
@@ -55,8 +59,11 @@ export class LandingPageComponent implements OnInit {
         boolean = true
       }
     }
+    this.route.navigate(["/catalogue"])
     return boolean
    }
+
+
 
   get trainers() : Trainer[] {
     return this.trainersService.trainers();
