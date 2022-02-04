@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Pokemon } from "../models/pokemon.model";
 import { Trainer } from "../models/trainer.model";
@@ -6,7 +6,7 @@ import { Trainer } from "../models/trainer.model";
 const httpOptions = {
     headers: new HttpHeaders({
         'X-API-Key':"X9dHGcSU9kuwKyxz2/p+TA==",
-      'Content-Type':  'application/json',
+        'Content-Type':  'application/json',
     })
   };
 
@@ -15,8 +15,8 @@ const httpOptions = {
 })
 
 export class TrainersService{
-    private trainers: Trainer[] = [];
-    private error: string = "";
+    private _trainers: Trainer[] = [];
+    private _error: string = "";
     
     private baseUrl = "https://spa-lb-experis-assignment.herokuapp.com/trainers"
 
@@ -26,9 +26,9 @@ export class TrainersService{
     public fetchTrainers(): void {
         this.http.get<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers")
         .subscribe((trainers: Trainer[]) =>{
-            this.trainers = trainers;
+            this._trainers = trainers;
         },(error: HttpErrorResponse) =>{
-            this.error = error.message;
+            this._error = error.message;
         })
     }
 
@@ -49,4 +49,11 @@ export class TrainersService{
 
     }
 
+    public trainers(): Trainer[]{
+        return this._trainers
+    }
+
+    public error() :string{
+        return this._error
+    }
 };

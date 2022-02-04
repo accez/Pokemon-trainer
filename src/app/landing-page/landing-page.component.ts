@@ -9,7 +9,7 @@ import { Trainer } from '../models/trainer.model';
 })
 export class LandingPageComponent implements OnInit {
   constructor(private readonly trainersService:TrainersService) { }
-  private userInput: string = '';
+  private _userInput: string = '';
 
   ngOnInit(): void {
     this.trainersService.fetchTrainers()
@@ -17,21 +17,52 @@ export class LandingPageComponent implements OnInit {
 
   public onChangeGetUserName(event: Event) {
     const target = event.target as HTMLInputElement
-    this.userInput = target.value 
+    this._userInput = target.value 
   }
 
   public getUserInput():string {
-    return this.userInput
+    return this._userInput
   }
 
   public addTrainer () {
     const uniq = new Date().getTime();
     const newTrainer: Trainer =  {id: uniq, username:this.getUserInput(), pokemon: []}
-    this.trainersService.postATrainer(newTrainer)
+    const existingTrainer = this.doesTrainerExistInDatabase()
+    
+    if(existingTrainer){
+      return
+    } else {
+      this.storeTrainerInLocalStorage(JSON.stringify(newTrainer))
+      this.trainersService.postATrainer(newTrainer)
+    }
   }
 
   public submit(event:Event){
     event.preventDefault();
     this.addTrainer();
+   }
+
+   doesTrainerExistInDatabase():boolean {
+    let boolean = false
+    for (const trainer of this.trainers) {
+      if(this.getUserInput() === trainer.username){
+        let trainerObject = {
+          id: trainer.id,
+          username: trainer.username,
+          pokemon: trainer.pokemon
+        }
+        this.storeTrainerInLocalStorage(JSON.stringify(trainerObject))
+        boolean = true
+      }
+    }
+    return boolean
+   }
+
+  get trainers() : Trainer[] {
+    return this.trainersService.trainers();
+  }
+
+   public storeTrainerInLocalStorage(userObject:string){
+    localStorage.setItem("trainer", userObject);
    }
 }
