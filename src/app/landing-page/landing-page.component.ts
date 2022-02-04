@@ -46,7 +46,7 @@ export class LandingPageComponent implements OnInit {
     this.addTrainer();
    }
 
-   doesTrainerExistInDatabase():boolean {
+  public doesTrainerExistInDatabase():boolean {
     let boolean = false
     for (const trainer of this.trainers) {
       if(this.getUserInput() === trainer.username){
