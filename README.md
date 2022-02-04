@@ -1,3 +1,8 @@
+
+
+src of the pokemon ball image https://pokemon.fandom.com/wiki/Pok%C3%A9_Ball
+
+
 # PokemonTrainer
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.

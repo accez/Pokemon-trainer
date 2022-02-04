@@ -9,11 +9,13 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MaterialModule } from './helper/material-module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
+import { CataloguePageComponent } from './catalogue-page/catalogue-page.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
+    CataloguePageComponent
     PageNotFoundComponent
   ],
   imports: [
