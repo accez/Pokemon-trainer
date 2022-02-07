@@ -1,0 +1,17 @@
+<div class="card">
+    <h1 class="first-letter">{{getPokemon().name}}</h1>
+
+
+    <div class="card inline-block">
+        <div *ngFor="let stat of getPokemon().stats"> 
+            <p class="first-letter" >{{stat.stat.name}} : {{stat.base_stat}} </p>
+        </div>
+
+    </div>
+
+    <div class="inline-block">
+        <img class="card inline-block" src="{{ getPokemon().sprites.back_default }}" />
+        <img class="card inline-block" src="{{ getPokemon().sprites.front_default }}" />
+    </div>
+
+</div>

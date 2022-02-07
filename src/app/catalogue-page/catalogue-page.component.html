@@ -1,23 +1,19 @@
 <div class="container">
   <div class="card">
     <h1>Pokemon Catalogue</h1>
+    <h5>Click pokemon image to add</h5>
 
     <mat-paginator [length]="100" [pageSize]="defaultPageSize" [pageSizeOptions]="[ 10, 20]" aria-label="Select page"
       (page)="handelPageChange($event)"></mat-paginator>
   </div>
 
-
   <div class="card inline-block" *ngFor="let pokemon of pokemonList()" (click)="catchPokemon(pokemon)">
     <h2 class="first-letter"> {{pokemon.name}} </h2>
-    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(pokemon)}}" />
-    <img class="icon" *ngIf=" trainersPokemons.indexOf(pokemon.name) !== -1" src="../../assets/Poke_Ball.png" />
-
-
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(pokemon)}}.png" />
+      <img class="icon" *ngIf="trainerHavePokemon(pokemon) === true" src="../../assets/Poke_Ball.png" />
     <div>
-      <button mat-raised-button color="red">Show more</button>
+      <button mat-raised-button routerLink="/detailed/{{pokemonId(pokemon)}}" >Show more</button>
     </div>
   </div>
-
-
 
 </div>
