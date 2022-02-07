@@ -189,10 +189,6 @@ const mock2: Pokemon[] = [
 })
 export class CataloguePageComponent implements OnInit {
 
-
-  trainersPokemons: string[] = ["bulbasaur", "charizard"]
-  currentPokemonIndex: number = 0
-
   defaultPageSize = 10
 
   constructor(
@@ -202,26 +198,20 @@ export class CataloguePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchPokemonList(0,this.defaultPageSize);
+    this.fetchPokemonList(0, this.defaultPageSize);
   }
-  fetchPokemonList(idToFetch:number,nrToFetch:number) {
-    //this.pokemonService.fetchPokemonListWithOffset(idToFetch,nrToFetch)
+  fetchPokemonList(idToFetch: number, nrToFetch: number) {
+    this.pokemonService.fetchPokemonListWithOffset(idToFetch,nrToFetch)
   }
 
   pokemonList(): Pokemon[] {
-    //return this.pokemonService.getPokemonList
-    return mockCombine
+    return this.pokemonService.getPokemonList
+    //return mockCombine
   }
 
 
   catchPokemon(pokemon: Pokemon) {
-    this.trainersPokemons.push(pokemon.name)
-    const trainer: Trainer = {
-      id: 1,
-      username: "Test",
-      pokemon: this.trainersPokemons,
-    }
-    this.trainerService.addPokemonToTrainer(trainer)
+    this.trainerService.addPokemonToTrainer({name:pokemon.name,url:pokemon.url,isDeleted:false})
   }
 
   /**
@@ -235,15 +225,33 @@ export class CataloguePageComponent implements OnInit {
    */
   pokemonId(pokemon: Pokemon): string {
     let urlArray = pokemon.url.split("/")
-    return urlArray[urlArray.length - 2] + ".png"
+    return urlArray[urlArray.length - 2]
   }
 
-  handelPageChange(event:PageEvent){
-    console.log(event)
-    let nextIndex = event.pageIndex*event.pageSize
-
-    this.fetchPokemonList(nextIndex,event.pageSize)
-
+  handelPageChange(event: PageEvent) {
+    let nextIndex = event.pageIndex * event.pageSize
+    this.fetchPokemonList(nextIndex, event.pageSize)
   }
 
+  trainerHavePokemon(pokemon: Pokemon) {
+    const trainersPokemon = this.trainerService.getCurrentUserFromStorage?.pokemon
+    if (trainersPokemon !== undefined) {
+      for (let i = 0; i < trainersPokemon.length; i++) {
+        if (trainersPokemon[i].name === pokemon.name) {
+          return !trainersPokemon[i].isDeleted
+        }
+      }
+    }
+    return false
+  }
+
+
+  getCurrentUserList(): Pokemon[] {
+    let temp = this.trainerService.getCurrentUserFromStorage
+    if (temp === null) {
+      return [] as Pokemon[]
+    } else {
+      return temp.pokemon
+    }
+  }
 }
