@@ -13,7 +13,7 @@ export class PokemonService {
 
   constructor(private http: HttpClient,) { }
 
-  public fetchPokemonListWithOffset(offset: Number,nrToFetch:number) {
+  public fetchPokemonListWithOffset(offset: Number, nrToFetch: number) {
     this.http.get<PokemonListFromApi>(`${this.pokemonApiBaseUrl}?offset=${offset}&limit=${nrToFetch}`)
       .subscribe({
         next: (response) => {
@@ -32,8 +32,30 @@ export class PokemonService {
       })
   }
 
+
+  public fetchPokemonByName(name: string){
+     this.http.get<PokemonDetailed>(`${this.pokemonApiBaseUrl}/${name}`)
+      .subscribe({
+        next: (response) => {
+          console.log(response)
+          this.pokemon = response
+        }, error: (error: Error) => { console.log(error.message) }
+      })
+  }
+
+
   get getPokemonList(): Pokemon[] {
     return this.pokemonList;
+  }
+  get getDetailedPokemon():PokemonDetailed | undefined{
+    return this.pokemon
+  }
+  get getDetailedPokemonUrl():string{
+    console.log(this.pokemon)
+    if(this.pokemon !== undefined){
+      return this.pokemon.sprites.front_default
+    }
+    return "NOT FOUND"
   }
 
 }

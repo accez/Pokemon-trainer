@@ -189,10 +189,6 @@ const mock2: Pokemon[] = [
 })
 export class CataloguePageComponent implements OnInit {
 
-
-  trainersPokemons: string[] = ["bulbasaur", "charizard"]
-  currentPokemonIndex: number = 0
-
   defaultPageSize = 10
 
   constructor(
@@ -202,9 +198,9 @@ export class CataloguePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchPokemonList(0,this.defaultPageSize);
+    this.fetchPokemonList(0, this.defaultPageSize);
   }
-  fetchPokemonList(idToFetch:number,nrToFetch:number) {
+  fetchPokemonList(idToFetch: number, nrToFetch: number) {
     //this.pokemonService.fetchPokemonListWithOffset(idToFetch,nrToFetch)
   }
 
@@ -215,13 +211,7 @@ export class CataloguePageComponent implements OnInit {
 
 
   catchPokemon(pokemon: Pokemon) {
-    this.trainersPokemons.push(pokemon.name)
-    const trainer: Trainer = {
-      id: 1,
-      username: "Test",
-      pokemon: this.trainersPokemons,
-    }
-    this.trainerService.addPokemonToTrainer(trainer)
+    this.trainerService.addPokemonToTrainer({name:pokemon.name,url:pokemon.url,isDeleted:false})
   }
 
   /**
@@ -238,12 +228,32 @@ export class CataloguePageComponent implements OnInit {
     return urlArray[urlArray.length - 2] + ".png"
   }
 
-  handelPageChange(event:PageEvent){
+  handelPageChange(event: PageEvent) {
     console.log(event)
-    let nextIndex = event.pageIndex*event.pageSize
+    let nextIndex = event.pageIndex * event.pageSize
 
-    this.fetchPokemonList(nextIndex,event.pageSize)
-
+    this.fetchPokemonList(nextIndex, event.pageSize)
   }
 
+  trainerHavePokemon(pokemon: Pokemon) {
+    const trainersPokemon = this.trainerService.getCurrentUserFromStorage?.pokemon
+    if (trainersPokemon !== undefined) {
+      for (let i = 0; i < trainersPokemon.length; i++) {
+        if (trainersPokemon[i].name === pokemon.name) {
+          return !trainersPokemon[i].isDeleted
+        }
+      }
+    }
+    return false
+  }
+
+
+  getCurrentUserList(): Pokemon[] {
+    let temp = this.trainerService.getCurrentUserFromStorage
+    if (temp === null) {
+      return [] as Pokemon[]
+    } else {
+      return temp.pokemon
+    }
+  }
 }

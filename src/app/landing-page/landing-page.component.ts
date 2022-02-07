@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainersService } from '../services/trainers.service';
 import { Trainer } from '../models/trainer.model';
+import { Pokemon } from '../models/pokemon.model';
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,7 +10,10 @@ import { Trainer } from '../models/trainer.model';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private readonly trainersService:TrainersService) { }
+  constructor(
+    private readonly trainersService: TrainersService,
+    private readonly pokemonService:PokemonService
+    ) { }
   private _userInput: string = '';
 
   ngOnInit(): void {
@@ -17,19 +22,19 @@ export class LandingPageComponent implements OnInit {
 
   public onChangeGetUserName(event: Event) {
     const target = event.target as HTMLInputElement
-    this._userInput = target.value 
+    this._userInput = target.value
   }
 
-  public getUserInput():string {
+  public getUserInput(): string {
     return this._userInput
   }
 
-  public addTrainer () {
+  public addTrainer() {
     const uniq = new Date().getTime();
-    const newTrainer: Trainer =  {id: uniq, username:this.getUserInput(), pokemon: []}
+    const newTrainer: Trainer = { id: uniq, username: this.getUserInput(), pokemon: [] }
     const existingTrainer = this.doesTrainerExistInDatabase()
-    
-    if(existingTrainer){
+
+    if (existingTrainer) {
       return
     } else {
       this.storeTrainerInLocalStorage(JSON.stringify(newTrainer))
@@ -37,32 +42,57 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  public submit(event:Event){
+  public submit(event: Event) {
     event.preventDefault();
     this.addTrainer();
-   }
+  }
 
-   doesTrainerExistInDatabase():boolean {
+  doesTrainerExistInDatabase(): boolean {
     let boolean = false
     for (const trainer of this.trainers) {
-      if(this.getUserInput() === trainer.username){
+      if (this.getUserInput() === trainer.username) {
+
         let trainerObject = {
           id: trainer.id,
           username: trainer.username,
-          pokemon: trainer.pokemon
+          pokemon: this.handelStringInPokemonArray(trainer.pokemon)
         }
         this.storeTrainerInLocalStorage(JSON.stringify(trainerObject))
         boolean = true
       }
     }
     return boolean
-   }
+  }
 
-  get trainers() : Trainer[] {
+  private handelStringInPokemonArray(unValidatedArray: any[]): Pokemon[] {
+    let validatedArray: Pokemon[] = []
+    for (const pokemon of unValidatedArray) {
+      if (typeof pokemon === "object") {
+        validatedArray.push(pokemon)
+        // TODO kan implementera senare om det finns tid 
+        // För att kunna "översätta" dem pokemons som är satta som stängar initialt i databasen.
+      // } else if (typeof pokemon === "string") {
+      //   validatedArray.push({
+      //     name: pokemon,
+      //     url: this.getPokemonUrl(pokemon),
+      //     isDeleted: false
+      //   })
+      }
+    }
+    return validatedArray;
+  }
+
+  // private getPokemonUrl(name:string):string{
+  //    let test = this.pokemonService.fetchPokemonByName(name);
+  //   console.log("Test: "+ test)
+  //   return 
+  // }
+
+  get trainers(): Trainer[] {
     return this.trainersService.trainers();
   }
 
-   public storeTrainerInLocalStorage(userObject:string){
+  public storeTrainerInLocalStorage(userObject: string) {
     localStorage.setItem("trainer", userObject);
-   }
+  }
 }

@@ -8,6 +8,7 @@ export interface PokemonListFromApi{
 export interface Pokemon{
     name: string;
     url: string;
+    isDeleted?:boolean;
 }
 
 export interface PokemonDetailed{

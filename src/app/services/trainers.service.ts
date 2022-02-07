@@ -5,55 +5,68 @@ import { Trainer } from "../models/trainer.model";
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'X-API-Key':"X9dHGcSU9kuwKyxz2/p+TA==",
-        'Content-Type':  'application/json',
+        'X-API-Key': "X9dHGcSU9kuwKyxz2/p+TA==",
+        'Content-Type': 'application/json',
     })
-  };
+};
 
 @Injectable({
     providedIn: "root"
 })
 
-export class TrainersService{
+export class TrainersService {
     private _trainers: Trainer[] = [];
     private _error: string = "";
-    
+
     private baseUrl = "https://spa-lb-experis-assignment.herokuapp.com/trainers"
 
-    constructor(private http: HttpClient, ) {
+    constructor(private http: HttpClient,) {
     }
 
     public fetchTrainers(): void {
         this.http.get<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers")
-        .subscribe((trainers: Trainer[]) =>{
-            this._trainers = trainers;
-        },(error: HttpErrorResponse) =>{
-            this._error = error.message;
-        })
+            .subscribe((trainers: Trainer[]) => {
+                this._trainers = trainers;
+            }, (error: HttpErrorResponse) => {
+                this._error = error.message;
+            })
     }
 
     public postATrainer(trainer: Trainer) {
-        this.http.post<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers",trainer, httpOptions)
-        .subscribe((trainer: Trainer[]) =>{
-        })
+        this.http.post<Trainer[]>("https://spa-lb-experis-assignment.herokuapp.com/trainers", trainer, httpOptions)
+            .subscribe((trainer: Trainer[]) => {
+            })
     }
 
-    public addPokemonToTrainer(trainer:Trainer):void{
-        this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`,trainer,httpOptions)
-        .subscribe({
-            next: (response) => {
-              // TODO man borde sen kanske sätta state här?
-              console.log(response)
-            }, error: (error: Error) => { console.log(error.message) }
-          })
-
+    public addPokemonToTrainer(pokemon: Pokemon): void {
+        // TODO get trainer from local storgae
+        let trainer = this.getCurrentUserFromStorage
+        if (trainer !== null) {
+            trainer.pokemon.push(pokemon)
+            this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
+                .subscribe({
+                    next: (response) => {
+                        // TODO man borde sen kanske sätta state här?
+                        localStorage.setItem("trainer", JSON.stringify(response));
+                        console.log(response)
+                    }, error: (error: Error) => { console.log(error.message) }
+                })
+        }
     }
 
-    public trainers(): Trainer[]{
+    get getCurrentUserFromStorage(): Trainer | null {
+        let trainer = localStorage.getItem("trainer")
+        if (trainer !== null) {
+            return JSON.parse(trainer)
+        }
+        return null
+    }
+
+    public trainers(): Trainer[] {
         return this._trainers
     }
 
-    public error() :string{
+    public error(): string {
         return this._error
     }
 };
