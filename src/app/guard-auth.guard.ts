@@ -14,7 +14,6 @@ export class GuardAuthGuard implements CanActivate {
     if(this.auth.isLoggedIn()){
       return true;
     }
-    window.alert('You need to login to view this page');
     this.route.navigate(["/landing-page"])
     return false;
   }

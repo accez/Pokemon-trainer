@@ -3,6 +3,8 @@ import { TrainersService } from '../services/trainers.service';
 import { Trainer } from '../models/trainer.model';
 import { Pokemon } from '../models/pokemon.model';
 import { PokemonService } from '../services/pokemon.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-landing-page',
@@ -12,12 +14,14 @@ import { PokemonService } from '../services/pokemon.service';
 export class LandingPageComponent implements OnInit {
   constructor(
     private readonly trainersService: TrainersService,
-    private readonly pokemonService:PokemonService
+    private readonly pokemonService:PokemonService,
+    private route: Router
     ) { }
   private _userInput: string = '';
 
   ngOnInit(): void {
     this.trainersService.fetchTrainers()
+    this.doesTrainerExistInDatabase()
   }
 
   public onChangeGetUserName(event: Event) {
@@ -39,6 +43,7 @@ export class LandingPageComponent implements OnInit {
     } else {
       this.storeTrainerInLocalStorage(JSON.stringify(newTrainer))
       this.trainersService.postATrainer(newTrainer)
+      this.route.navigate(["/catalogue"])
     }
   }
 
@@ -47,7 +52,8 @@ export class LandingPageComponent implements OnInit {
     this.addTrainer();
   }
 
-  doesTrainerExistInDatabase(): boolean {
+
+  public doesTrainerExistInDatabase():boolean {
     let boolean = false
     for (const trainer of this.trainers) {
       if (this.getUserInput() === trainer.username) {
@@ -61,6 +67,7 @@ export class LandingPageComponent implements OnInit {
         boolean = true
       }
     }
+    this.route.navigate(["/catalogue"])
     return boolean
   }
 
@@ -82,13 +89,7 @@ export class LandingPageComponent implements OnInit {
     return validatedArray;
   }
 
-  // private getPokemonUrl(name:string):string{
-  //    let test = this.pokemonService.fetchPokemonByName(name);
-  //   console.log("Test: "+ test)
-  //   return 
-  // }
-
-  get trainers(): Trainer[] {
+  get trainers() : Trainer[] {
     return this.trainersService.trainers();
   }
 

@@ -54,12 +54,22 @@ export class TrainersService {
         }
     }
 
+
     get getCurrentUserFromStorage(): Trainer | null {
         let trainer = localStorage.getItem("trainer")
         if (trainer !== null) {
             return JSON.parse(trainer)
         }
         return null
+    }
+    
+    public addPokemonToTrainerInLocalStorage(id:number, username:string, pokemon:string[]){
+        const trainer = {
+            id: id,
+            username: username,
+            pokemon:pokemon
+        }
+        localStorage.setItem("trainer",JSON.stringify(trainer))
     }
 
     public trainers(): Trainer[] {
