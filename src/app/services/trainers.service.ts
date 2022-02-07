@@ -43,18 +43,13 @@ export class TrainersService{
         .subscribe({
             next: (response) => {
               // TODO man borde sen kanske sätta state här?
-              this.addPokemonToTrainerInLocalStorage(response.id,response.username,response.pokemon)
+              this.addPokemonToTrainerInLocalStorage(response)
             }, error: (error: Error) => { console.log(error.message) }
           })
 
     }
     
-    public addPokemonToTrainerInLocalStorage(id:number, username:string, pokemon:string[]){
-        const trainer = {
-            id: id,
-            username: username,
-            pokemon:pokemon
-        }
+    public addPokemonToTrainerInLocalStorage(trainer: Trainer){
         localStorage.setItem("trainer",JSON.stringify(trainer))
     }
 
