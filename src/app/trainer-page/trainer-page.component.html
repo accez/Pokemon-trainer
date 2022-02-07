@@ -1,11 +1,14 @@
 <div class="container">
-    <h1>My Pokémon collection</h1>
-    <div class="card inline-block" *ngFor="let pokemon of getCurrentUser()">
+  <h1>My Pokémon collection</h1>
+  <div *ngFor="let pokemon of getCurrentUser()">
+    <div class="card inline-block" *ngIf="!pokemon.isDeleted">
       <h2 class="first-letter">{{pokemon.name}} </h2>
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(pokemon)}}.png"/>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(pokemon)}}.png" />
       <div>
-        <button mat-raised-button>Delete</button>
+        <button (click)="removePokemon(pokemon)">Delete</button>
       </div>
     </div>
-  
+
   </div>
+
+</div>

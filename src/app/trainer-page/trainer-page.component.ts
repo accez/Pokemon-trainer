@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TrainersService } from '../services/trainers.service'
 import { Pokemon } from '../models/pokemon.model';
-import { PokemonDetailedPageComponent } from '../pokemon-detailed-page/pokemon-detailed-page.component';
 
 
 @Component({
@@ -9,7 +8,7 @@ import { PokemonDetailedPageComponent } from '../pokemon-detailed-page/pokemon-d
   templateUrl: './trainer-page.component.html',
   styleUrls: ['./trainer-page.component.scss']
 })
-export class TrainerPageComponent{
+export class TrainerPageComponent {
 
   constructor(private readonly trainerService: TrainersService) { }
 
@@ -18,12 +17,28 @@ export class TrainerPageComponent{
     return urlArray[urlArray.length - 2]
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     let temp = this.trainerService.getCurrentUserFromStorage
     if (temp === null) {
       return [] as Pokemon[]
     } else {
       return temp.pokemon
+    }
+  }
+
+  removePokemon(pokemonToRemove: Pokemon) {
+    console.log(pokemonToRemove)
+    let trainer = this.trainerService.getCurrentUserFromStorage
+
+    if (trainer !== null) {
+      for (const pokemon of trainer.pokemon) {
+        if(pokemon.name === pokemonToRemove.name){
+          pokemon.isDeleted = true;
+          console.log(trainer)
+          this.trainerService.updateTrainer(trainer)
+          return
+        }
+      }
     }
   }
 }

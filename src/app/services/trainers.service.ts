@@ -54,6 +54,18 @@ export class TrainersService {
         }
     }
 
+    public updateTrainer(trainer: Trainer): void {
+        // TODO get trainer from local storgae
+        this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
+            .subscribe({
+                next: (response) => {
+                    // TODO man borde sen kanske sätta state här?
+                    localStorage.setItem("trainer", JSON.stringify(response));
+                    console.log(response)
+                }, error: (error: Error) => { console.log(error.message) }
+            })
+
+    }
 
     get getCurrentUserFromStorage(): Trainer | null {
         let trainer = localStorage.getItem("trainer")
@@ -62,14 +74,14 @@ export class TrainersService {
         }
         return null
     }
-    
-    public addPokemonToTrainerInLocalStorage(id:number, username:string, pokemon:string[]){
+
+    public addPokemonToTrainerInLocalStorage(id: number, username: string, pokemon: string[]) {
         const trainer = {
             id: id,
             username: username,
-            pokemon:pokemon
+            pokemon: pokemon
         }
-        localStorage.setItem("trainer",JSON.stringify(trainer))
+        localStorage.setItem("trainer", JSON.stringify(trainer))
     }
 
     public trainers(): Trainer[] {
