@@ -6,6 +6,7 @@ import { GuardAuthGuard } from './guard-auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PokemonDetailedPageComponent } from './pokemon-detailed-page/pokemon-detailed-page.component';
+import { TrainerPageComponent } from './trainer-page/trainer-page.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'detailed/:id',
     component: PokemonDetailedPageComponent,
     canActivate:[GuardAuthGuard]
+  },
+  {
+    path: 'trainer',
+    component: TrainerPageComponent,
+    canActivate: [GuardAuthGuard]
   },
   {
     path: '**', component: PageNotFoundComponent
