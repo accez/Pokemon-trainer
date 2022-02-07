@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TrainersService } from '../services/trainers.service'
+import { Pokemon } from '../models/pokemon.model';
+import { PokemonDetailedPageComponent } from '../pokemon-detailed-page/pokemon-detailed-page.component';
+
 
 @Component({
   selector: 'app-trainer-page',
   templateUrl: './trainer-page.component.html',
   styleUrls: ['./trainer-page.component.scss']
 })
-export class TrainerPageComponent implements OnInit {
+export class TrainerPageComponent{
 
-  constructor() { }
+  constructor(private readonly trainerService: TrainersService) { }
 
-  ngOnInit(): void {
+  pokemonId(pokemon: Pokemon): string {
+    let urlArray = pokemon.url.split("/")
+    return urlArray[urlArray.length - 2]
   }
 
+  getCurrentUser(){
+    let temp = this.trainerService.getCurrentUserFromStorage
+    if (temp === null) {
+      return [] as Pokemon[]
+    } else {
+      return temp.pokemon
+    }
+  }
 }

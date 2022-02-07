@@ -1,8 +1,8 @@
 <div class="container">
     <h1>My Pokémon collection</h1>
-    <div class="card">
-      <h2 class="first-letter"> </h2>
-      <img src=""/>
+    <div class="card inline-block" *ngFor="let pokemon of getCurrentUser()">
+      <h2 class="first-letter">{{pokemon.name}} </h2>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(pokemon)}}.png"/>
       <div>
         <button mat-raised-button>Delete</button>
       </div>
