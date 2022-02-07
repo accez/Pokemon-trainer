@@ -22,7 +22,6 @@ export class PokemonService {
       })
   }
 
-
   public fetchPokemonDetailed(id: number) {
     this.http.get<PokemonDetailed>(`${this.pokemonApiBaseUrl}/${id}/`)
       .subscribe({

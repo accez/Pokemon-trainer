@@ -5,6 +5,7 @@ import { CataloguePageComponent } from './catalogue-page/catalogue-page.componen
 import { GuardAuthGuard } from './guard-auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PokemonDetailedPageComponent } from './pokemon-detailed-page/pokemon-detailed-page.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'catalogue',
     // pathMatch:'full',
     component: CataloguePageComponent,
+    // canActivate:[GuardAuthGuard]
+  },{
+    path: 'detailed/:id',
+    // pathMatch:'full',
+    component: PokemonDetailedPageComponent,
     // canActivate:[GuardAuthGuard]
   },
   {

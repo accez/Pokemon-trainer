@@ -201,12 +201,12 @@ export class CataloguePageComponent implements OnInit {
     this.fetchPokemonList(0, this.defaultPageSize);
   }
   fetchPokemonList(idToFetch: number, nrToFetch: number) {
-    //this.pokemonService.fetchPokemonListWithOffset(idToFetch,nrToFetch)
+    this.pokemonService.fetchPokemonListWithOffset(idToFetch,nrToFetch)
   }
 
   pokemonList(): Pokemon[] {
-    //return this.pokemonService.getPokemonList
-    return mockCombine
+    return this.pokemonService.getPokemonList
+    //return mockCombine
   }
 
 
@@ -225,13 +225,11 @@ export class CataloguePageComponent implements OnInit {
    */
   pokemonId(pokemon: Pokemon): string {
     let urlArray = pokemon.url.split("/")
-    return urlArray[urlArray.length - 2] + ".png"
+    return urlArray[urlArray.length - 2]
   }
 
   handelPageChange(event: PageEvent) {
-    console.log(event)
     let nextIndex = event.pageIndex * event.pageSize
-
     this.fetchPokemonList(nextIndex, event.pageSize)
   }
 
