@@ -43,11 +43,6 @@ export class TrainerPageComponent{
       this.pageSize = event.pageSize;
     }
   }
-
-  logOut(){
-    localStorage.clear()
-  }
-
   removePokemon(pokemonToRemove: Pokemon) {
     let trainer = this.trainerService.getCurrentUserFromStorage
 
