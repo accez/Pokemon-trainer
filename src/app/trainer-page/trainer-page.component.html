@@ -10,6 +10,5 @@
     </div>
   </div>
 </div>
-<button (click)="logOut()" routerLink="/">Log Out!</button>
-<mat-paginator *ngIf="getCurrentUser().length >= 10" [length]="getCurrentUser().length" [pageSize]="pageSize" [pageSizeOptions]="[10, 20]" aria-label="Select page"
+<mat-paginator class="footer" *ngIf="getCurrentUser().length >= 10" [length]="getCurrentUser().length" [pageSize]="pageSize" [pageSizeOptions]="[10, 20]" aria-label="Select page"
 (page)="handelPageChange($event)"></mat-paginator>
