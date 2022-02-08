@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Pokemon } from '../models/pokemon.model';
 
 
+
 @Component({
   selector: 'app-trainer-page',
   templateUrl: './trainer-page.component.html',
@@ -42,6 +43,10 @@ export class TrainerPageComponent{
       this.pageSize = event.pageSize;
       console.log(this.pageSize)
     }
+  }
+
+  logOut(){
+    localStorage.clear()
   }
 
   removePokemon(pokemonToRemove: Pokemon) {
