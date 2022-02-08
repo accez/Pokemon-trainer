@@ -13,7 +13,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getCurrentUser(){
+  /**
+   * Method to get current users username
+   * @returns current user username or undefined
+   */
+  getCurrentUser():string | undefined {
     return this.trainerService.getCurrentUserFromStorage?.username
   }
   

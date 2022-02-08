@@ -38,21 +38,34 @@ export class TrainersService {
             })
     }
 
-    public addPokemonToTrainer(pokemonToAdd: Pokemon): void {
-        let trainer = this.getCurrentUserFromStorage
-        if (trainer !== null) {
-            if (!trainer.pokemon.find(pokemon => { return pokemon.name === pokemonToAdd.name })) {
-                trainer.pokemon.push(pokemonToAdd)
-                this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
-                    .subscribe({
-                        next: (response) => {
-                            localStorage.setItem("trainer", JSON.stringify(response));
-                        }, error: (error: Error) => { console.log(error.message) }
-                    })
-            }
-        }
-    }
+    // public addPokemonToTrainer(pokemonToAdd: Pokemon): void {
+    //     let trainer = this.getCurrentUserFromStorage
+    //     if (trainer !== null) {
+    //         if (!trainer.pokemon.find(pokemon => { return pokemon.name === pokemonToAdd.name })) {
+    //             trainer.pokemon.push(pokemonToAdd)
+    //             this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
+    //                 .subscribe({
+    //                     next: (response) => {
+    //                         localStorage.setItem("trainer", JSON.stringify(response));
+    //                     }, error: (error: Error) => { console.log(error.message) }
+    //                 })
+    //         }
+    //     }
+    // }
 
+    /**
+     * Method to update trainer, mostly used to handel changes in the trainers pokemon list
+     * @param trainer trainer object to update
+     */
+    public updateTrainer(trainer: Trainer): void {
+        this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
+            .subscribe({
+                next: (response) => {
+                    localStorage.setItem("trainer", JSON.stringify(response));
+                }, error: (error: Error) => { console.log(error.message) }
+            })
+
+    }
 
     get getCurrentUserFromStorage(): Trainer | null {
         let trainer = localStorage.getItem("trainer")
@@ -62,6 +75,12 @@ export class TrainersService {
         return null
     }
 
+    /**
+     * Help method to save current user to localstorage
+     * @param id of the trainer
+     * @param username of the trainer
+     * @param pokemon trainers caught pokemon list
+     */
     public addPokemonToTrainerInLocalStorage(id: number, username: string, pokemon: string[]) {
         const trainer = {
             id: id,
