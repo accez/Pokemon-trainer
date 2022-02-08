@@ -44,7 +44,7 @@ export class CataloguePageComponent implements OnInit {
    * @returns rounded up int
    */
   numberOfPages():NumberInput {
-    return Math.ceil( this.pokemonService._numberPokemons / this.pageSize)
+    return this.pokemonService._numberPokemons
   }
 
   /**
