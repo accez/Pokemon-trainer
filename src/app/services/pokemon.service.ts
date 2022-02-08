@@ -52,7 +52,6 @@ export class PokemonService {
     return this.pokemon
   }
   get getDetailedPokemonUrl():string{
-    console.log(this.pokemon)
     if(this.pokemon !== undefined){
       return this.pokemon.sprites.front_default
     }

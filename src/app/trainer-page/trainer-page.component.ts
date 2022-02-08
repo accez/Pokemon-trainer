@@ -41,7 +41,6 @@ export class TrainerPageComponent{
     if(this.getCurrentUser() !== null){
       this.index = nextIndex;
       this.pageSize = event.pageSize;
-      console.log(this.pageSize)
     }
   }
 
@@ -50,14 +49,12 @@ export class TrainerPageComponent{
   }
 
   removePokemon(pokemonToRemove: Pokemon) {
-    console.log(pokemonToRemove)
     let trainer = this.trainerService.getCurrentUserFromStorage
 
     if (trainer !== null) {
       for (const pokemon of trainer.pokemon) {
         if(pokemon.name === pokemonToRemove.name){
           pokemon.isDeleted = true;
-          console.log(trainer)
           this.trainerService.updateTrainer(trainer)
           return
         }

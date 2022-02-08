@@ -76,14 +76,6 @@ export class LandingPageComponent implements OnInit {
     for (const pokemon of unValidatedArray) {
       if (typeof pokemon === "object") {
         validatedArray.push(pokemon)
-        // TODO kan implementera senare om det finns tid 
-        // För att kunna "översätta" dem pokemons som är satta som stängar initialt i databasen.
-      // } else if (typeof pokemon === "string") {
-      //   validatedArray.push({
-      //     name: pokemon,
-      //     url: this.getPokemonUrl(pokemon),
-      //     isDeleted: false
-      //   })
       }
     }
     return validatedArray;
