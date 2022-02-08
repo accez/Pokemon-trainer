@@ -1,0 +1,20 @@
+.container {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.first-letter {
+  text-transform: capitalize;
+}
+
+.card {
+  display: block;
+  border: 3px solid;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: fit-content;
+}

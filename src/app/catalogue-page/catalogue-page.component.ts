@@ -2,7 +2,6 @@ import { NumberInput } from '@angular/cdk/coercion';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Pokemon } from '../models/pokemon.model';
-import { Trainer } from '../models/trainer.model';
 import { PokemonService } from '../services/pokemon.service';
 import { TrainersService } from '../services/trainers.service';
 

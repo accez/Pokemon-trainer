@@ -62,9 +62,9 @@ export class TrainersService {
             .subscribe({
                 next: (response) => {
                     localStorage.setItem("trainer", JSON.stringify(response));
+
                 }, error: (error: Error) => { console.log(error.message) }
             })
-
     }
 
     get getCurrentUserFromStorage(): Trainer | null {

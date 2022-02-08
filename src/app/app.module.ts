@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CataloguePageComponent } from './catalogue-page/catalogue-page.component';
 import { PokemonDetailedPageComponent } from './pokemon-detailed-page/pokemon-detailed-page.component';
 import { NavbarComponent } from './navbar/navbar.component'
+import { TrainerPageComponent } from './trainer-page/trainer-page.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './navbar/navbar.component'
     CataloguePageComponent,
     PageNotFoundComponent,
     PokemonDetailedPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    TrainerPageComponent
   ],
   imports: [
     BrowserModule,
