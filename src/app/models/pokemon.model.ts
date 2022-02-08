@@ -1,7 +1,6 @@
 
-
-
 export interface PokemonListFromApi {
+    count:number;
     results: Pokemon[]
 }
 

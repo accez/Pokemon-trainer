@@ -12,7 +12,7 @@ import { TrainersService } from '../services/trainers.service';
 })
 export class CataloguePageComponent implements OnInit {
 
-  defaultPageSize = 10
+  pageSize = 10
 
   constructor(
     private readonly pokemonService: PokemonService,
@@ -21,7 +21,7 @@ export class CataloguePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchPokemonList(0, this.defaultPageSize);
+    this.fetchPokemonList(0, this.pageSize);
   }
   fetchPokemonList(idToFetch: number, nrToFetch: number) {
     this.pokemonService.fetchPokemonListWithOffset(idToFetch, nrToFetch)
@@ -29,6 +29,9 @@ export class CataloguePageComponent implements OnInit {
 
   pokemonList(): Pokemon[] {
     return this.pokemonService.getPokemonList
+  }
+  numberOfPages() {
+    return Math.ceil( this.pokemonService._numberPokemons / this.pageSize)
   }
 
 
@@ -66,6 +69,7 @@ export class CataloguePageComponent implements OnInit {
 
   handelPageChange(event: PageEvent) {
     let nextIndex = event.pageIndex * event.pageSize
+    this.pageSize = event.pageSize
     this.fetchPokemonList(nextIndex, event.pageSize)
   }
 
@@ -80,7 +84,6 @@ export class CataloguePageComponent implements OnInit {
     }
     return false
   }
-
 
   getCurrentUserList(): Pokemon[] {
     let temp = this.trainerService.getCurrentUserFromStorage

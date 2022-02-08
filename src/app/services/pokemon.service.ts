@@ -8,6 +8,7 @@ import { Pokemon, PokemonDetailed, PokemonListFromApi } from '../models/pokemon.
 export class PokemonService {
 
   pokemonApiBaseUrl = "https://pokeapi.co/api/v2/pokemon"
+  _numberPokemons:number = 0;
   pokemonList: Pokemon[] = [];
   pokemon: PokemonDetailed | undefined;
 
@@ -17,6 +18,7 @@ export class PokemonService {
     this.http.get<PokemonListFromApi>(`${this.pokemonApiBaseUrl}?offset=${offset}&limit=${nrToFetch}`)
       .subscribe({
         next: (response) => {
+          this._numberPokemons = response.count
           this.pokemonList = response.results
         }, error: (error: Error) => { console.log(error.message) }
       })
@@ -43,6 +45,9 @@ export class PokemonService {
   }
 
 
+  get numberPokemons(){
+    return this._numberPokemons
+  }
   get getPokemonList(): Pokemon[] {
     return this.pokemonList;
   }
