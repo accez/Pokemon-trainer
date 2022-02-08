@@ -21,4 +21,9 @@ export class NavbarComponent implements OnInit {
     return this.trainerService.getCurrentUserFromStorage?.username
   }
   
+  
+  logOut(){
+    localStorage.clear()
+  }
+
 }
