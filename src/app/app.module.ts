@@ -10,7 +10,8 @@ import { MaterialModule } from './helper/material-module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 import { CataloguePageComponent } from './catalogue-page/catalogue-page.component';
-import { PokemonDetailedPageComponent } from './pokemon-detailed-page/pokemon-detailed-page.component'
+import { PokemonDetailedPageComponent } from './pokemon-detailed-page/pokemon-detailed-page.component';
+import { NavbarComponent } from './navbar/navbar.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PokemonDetailedPageComponent } from './pokemon-detailed-page/pokemon-de
     LandingPageComponent,
     CataloguePageComponent,
     PageNotFoundComponent,
-    PokemonDetailedPageComponent
+    PokemonDetailedPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
