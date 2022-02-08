@@ -1,0 +1,5 @@
+
+<div *ngIf="getCurrentUser() !== undefined">
+    <h2 class="inline-block" routerLink="/catalogue">Pokemon catalogue</h2>
+    <h2 class="inline-block" routerLink="/trainer" > {{getCurrentUser()}} </h2>
+</div>

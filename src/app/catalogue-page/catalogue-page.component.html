@@ -3,7 +3,7 @@
     <h1>Pokemon Catalogue</h1>
     <h5>Click pokemon image to add</h5>
 
-    <mat-paginator [length]="100" [pageSize]="defaultPageSize" [pageSizeOptions]="[ 10, 20]" aria-label="Select page"
+    <mat-paginator [length]="numberOfPages()" [pageSize]="pageSize" [pageSizeOptions]="[ 10, 20]" aria-label="Select page"
       (page)="handelPageChange($event)"></mat-paginator>
   </div>
 
