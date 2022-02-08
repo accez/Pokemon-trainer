@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TrainersService } from '../services/trainers.service'
+import { PageEvent } from '@angular/material/paginator';
 import { Pokemon } from '../models/pokemon.model';
 
 
@@ -8,7 +9,11 @@ import { Pokemon } from '../models/pokemon.model';
   templateUrl: './trainer-page.component.html',
   styleUrls: ['./trainer-page.component.scss']
 })
-export class TrainerPageComponent {
+export class TrainerPageComponent{
+  pageSize = 10;
+  index = 0
+
+
 
   constructor(private readonly trainerService: TrainersService) { }
 
@@ -18,11 +23,24 @@ export class TrainerPageComponent {
   }
 
   getCurrentUser() {
-    let temp = this.trainerService.getCurrentUserFromStorage
+    let temp =  this.trainerService.getCurrentUserFromStorage
     if (temp === null) {
       return [] as Pokemon[]
     } else {
       return temp.pokemon
+    }
+  }
+
+  displayPokemon() {
+    return this.getCurrentUser().splice(this.index,this.pageSize);
+  }
+
+  handelPageChange(event: PageEvent) {
+    let nextIndex = event.pageIndex * event.pageSize
+    if(this.getCurrentUser() !== null){
+      this.index = nextIndex;
+      this.pageSize = event.pageSize;
+      console.log(this.pageSize)
     }
   }
 

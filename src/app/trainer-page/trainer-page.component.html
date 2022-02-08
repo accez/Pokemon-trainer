@@ -1,6 +1,6 @@
+<h1>My Pokémon collection</h1>
 <div class="container">
-  <h1>My Pokémon collection</h1>
-  <div *ngFor="let pokemon of getCurrentUser()">
+  <div *ngFor="let pokemon of displayPokemon()">
     <div class="card inline-block" *ngIf="!pokemon.isDeleted">
       <h2 class="first-letter">{{pokemon.name}} </h2>
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemonId(pokemon)}}.png" />
@@ -8,7 +8,7 @@
         <button (click)="removePokemon(pokemon)">Delete</button>
       </div>
     </div>
-
   </div>
-
 </div>
+<mat-paginator *ngIf="getCurrentUser().length >= 10" [length]="getCurrentUser().length" [pageSize]="pageSize" [pageSizeOptions]="[10, 20]" aria-label="Select page"
+(page)="handelPageChange($event)"></mat-paginator>
