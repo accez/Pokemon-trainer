@@ -38,19 +38,18 @@ export class TrainersService {
             })
     }
 
-    public addPokemonToTrainer(pokemon: Pokemon): void {
-        // TODO get trainer from local storgae
+    public addPokemonToTrainer(pokemonToAdd: Pokemon): void {
         let trainer = this.getCurrentUserFromStorage
         if (trainer !== null) {
-            trainer.pokemon.push(pokemon)
-            this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
-                .subscribe({
-                    next: (response) => {
-                        // TODO man borde sen kanske sätta state här?
-                        localStorage.setItem("trainer", JSON.stringify(response));
-                        console.log(response)
-                    }, error: (error: Error) => { console.log(error.message) }
-                })
+            if (!trainer.pokemon.find(pokemon => { return pokemon.name === pokemonToAdd.name })) {
+                trainer.pokemon.push(pokemonToAdd)
+                this.http.patch<Trainer>(`${this.baseUrl}/${trainer.id}`, trainer, httpOptions)
+                    .subscribe({
+                        next: (response) => {
+                            localStorage.setItem("trainer", JSON.stringify(response));
+                        }, error: (error: Error) => { console.log(error.message) }
+                    })
+            }
         }
     }
 
