@@ -1,3 +1,77 @@
+# Noroff JS assignment 4 Angular Pokemon 
+
+Simple overview of use/purpose.
+
+Fourth JavaScript assignment from Noroff winter 2022. Task is to create a simple pokemon catalogue where users (trainers) can also catch pokemons. 
+
+## Description
+
+An in-depth paragraph about your project and overview of use.
+
+The task is to create a SPA using Angular with tree main pages.
+
+### Landing Page
+Landing page with works as a start screen where users can "log in" witch works with just username. If username already exist in database it will be fetched else a new user will be created. 
+
+### Trainer Page
+On the trainer page a 
+
+### Pokémon Catalogue Page 
+
+
+## Getting Started
+
+### Dependencies
+
+* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+* ex. Windows 10
+
+### Installing
+
+* How/where to download your program
+* Any modifications needed to be made to files/folders
+
+### Executing program
+
+* How to run the program
+* Step-by-step bullets
+```
+code blocks for commands
+```
+
+## Help
+
+Any advise for common problems or issues.
+```
+command to run if program contains helper info
+```
+
+## Authors
+
+Contributors names and contact info
+
+ex. Dominique Pizzie  
+ex. [@DomPizzie](https://twitter.com/dompizzie)
+
+## Version History
+
+* 0.2
+    * Various bug fixes and optimizations
+    * See [commit change]() or See [release history]()
+* 0.1
+    * Initial Release
+
+## License
+
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+
+## Acknowledgments
+
+Src of pokemon ball image: https://pokemon.fandom.com/wiki/Pok%C3%A9_Ball
+
+
+
+
 
 
 src of the pokemon ball image https://pokemon.fandom.com/wiki/Pok%C3%A9_Ball
