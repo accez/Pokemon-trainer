@@ -58,7 +58,6 @@ export class TrainerPageComponent{
           pokemon.isDeleted = true;
           filteredPokemon.push(pokemon)
           trainer.pokemon = filteredPokemon
-          console.log(trainer)
           this.trainerService.updateTrainer(trainer)
           return
         }
