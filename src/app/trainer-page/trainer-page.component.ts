@@ -49,7 +49,16 @@ export class TrainerPageComponent{
     if (trainer !== null) {
       for (const pokemon of trainer.pokemon) {
         if(pokemon.name === pokemonToRemove.name){
+          let filteredPokemon = trainer.pokemon.filter((value =>{
+            if(value.name !== pokemon.name){
+               return value
+            }
+            return
+           }))
           pokemon.isDeleted = true;
+          filteredPokemon.push(pokemon)
+          trainer.pokemon = filteredPokemon
+          console.log(trainer)
           this.trainerService.updateTrainer(trainer)
           return
         }
