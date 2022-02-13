@@ -24,6 +24,9 @@ export class LandingPageComponent implements OnInit {
     this.doesTrainerExistInDatabase()
   }
 
+  /**
+   * Gets the user name from input
+   */
   public onChangeGetUserName(event: Event) {
     const target = event.target as HTMLInputElement
     this._userInput = target.value
@@ -33,6 +36,10 @@ export class LandingPageComponent implements OnInit {
     return this._userInput
   }
 
+  /**
+   * Adds a trainer to local storage and api
+   * if the user does not already exist.
+   */
   public addTrainer() {
     const uniq = new Date().getTime();
     const newTrainer: Trainer = { id: uniq, username: this.getUserInput(), pokemon: [] }
@@ -52,7 +59,10 @@ export class LandingPageComponent implements OnInit {
     this.addTrainer();
   }
 
-
+/**
+ * Checks if trainer already exist in database.
+ * @returns If the trainer exist returns true
+ */
   public doesTrainerExistInDatabase():boolean {
     let boolean = false
     for (const trainer of this.trainers) {

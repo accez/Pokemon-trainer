@@ -66,7 +66,7 @@ export class TrainersService {
                 }, error: (error: Error) => { console.log(error.message) }
             })
     }
-
+    
     get getCurrentUserFromStorage(): Trainer | null {
         let trainer = localStorage.getItem("trainer")
         if (trainer !== null) {

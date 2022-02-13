@@ -32,10 +32,16 @@ export class TrainerPageComponent{
     }
   }
 
+  /**
+   * Displays the pokemons based on paginator.
+   */
   displayPokemon() {
     return this.getCurrentUser().splice(this.index,this.pageSize);
   }
 
+  /**
+   * Handler to change page.
+   */
   handelPageChange(event: PageEvent) {
     let nextIndex = event.pageIndex * event.pageSize
     if(this.getCurrentUser() !== null){
@@ -43,6 +49,7 @@ export class TrainerPageComponent{
       this.pageSize = event.pageSize;
     }
   }
+
   removePokemon(pokemonToRemove: Pokemon) {
     let trainer = this.trainerService.getCurrentUserFromStorage
 
